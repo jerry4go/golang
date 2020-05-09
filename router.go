@@ -22,8 +22,8 @@ var Articles []Article
 // 首页
 func homePage(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Fprintf(w, "Welcome to the HomePage!")
-	fmt.Println("Endpoint Hit: HomePage")
+	fmt.Fprintf(w, "Welcome to the HomePage!") // 根据格式说明来将字符串拼接格式化并写到w中
+	fmt.Println("Endpoint Hit: HomePage")      // 输出一行
 
 }
 
