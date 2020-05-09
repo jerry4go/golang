@@ -19,16 +19,21 @@ type Article struct {
 
 var Articles []Article
 
+// 首页
 func homePage(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "Welcome to the HomePage!")
 	fmt.Println("Endpoint Hit: HomePage")
 
 }
+
+// 返回所有文章
 func returnAllArticles(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: returnAllArticles")
 	json.NewEncoder(w).Encode(Articles)
 }
+
+// 返回单篇文章
 func returnSingleArticle(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	key := vars["id"]
@@ -40,6 +45,8 @@ func returnSingleArticle(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
+// 创建新的文章
 func createNewArticle(w http.ResponseWriter, r *http.Request) {
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	//fmt.Fprintf(w, "%+v", string(reqBody))
@@ -52,6 +59,7 @@ func createNewArticle(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(article)
 }
 
+// 删除指定文章
 func deleteArticle(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -74,6 +82,7 @@ func deleteArticle(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(Articles)
 }
 
+// 修改指定的文章
 func updateArticle(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("update article")
 	//w.Header().Set("Content-Type", "application/json")
@@ -99,6 +108,7 @@ func updateArticle(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// 路由
 func handleRequests() {
 	myRouter := mux.NewRouter().StrictSlash(true)
 
@@ -112,6 +122,7 @@ func handleRequests() {
 	log.Fatal(http.ListenAndServe(":8787", myRouter))
 }
 
+// 入口
 func main() {
 	fmt.Println("Rest API v2.0 - Mux Routers")
 
